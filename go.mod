@@ -1,1 +1,1 @@
-module "github.com/pkg/xattr"
+module "github.com/y-okubo/xattr"
