@@ -5,16 +5,11 @@ package xattr
 import "syscall"
 
 // Get retrieves extended attribute data associated with path.
-func Get(path, name string) ([]byte, error) {
-	// find size.
-	size, err := getxattr(path, name, nil, 0, 0, 0)
-	if err != nil {
-		return nil, &Error{"xattr.Get", path, name, err}
-	}
+func Get(path, name string, size, position int) ([]byte, error) {
 	if size > 0 {
 		buf := make([]byte, size)
 		// Read into buffer of that size.
-		read, err := getxattr(path, name, &buf[0], size, 0, 0)
+		read, err := getxattr(path, name, &buf[0], size, position, 0)
 		if err != nil {
 			return nil, &Error{"xattr.Get", path, name, err}
 		}
