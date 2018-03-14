@@ -40,13 +40,13 @@ func List(path string) ([]string, error) {
 }
 
 // Set associates name and data together as an attribute of path.
-func Set(path, name string, data []byte) error {
-	var dataval *byte = nil
-	datalen := len(data)
-	if datalen > 0 {
+func Set(path, name string, data []byte, size, position int) error {
+	var dataval *byte
+
+	if size > 0 {
 		dataval = &data[0]
 	}
-	if err := setxattr(path, name, dataval, datalen, 0, 0); err != nil {
+	if err := setxattr(path, name, dataval, size, position, 0); err != nil {
 		return &Error{"xattr.Set", path, name, err}
 	}
 	return nil
